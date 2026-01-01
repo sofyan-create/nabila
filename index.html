@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun & Tahun Baru!</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #ff69b4, #87ceeb);
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            touch-action: none;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            padding: 20px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        h1 {
+            width: 28ch;
+            /* sesuai panjang teks */
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            overflow: hidden;
+            border-right: 0.15em solid white;
+            white-space: nowrap;
+            animation: typing 3s steps(28), blink-caret 0.75s step-end infinite;
+        }
+
+        @media (max-width: 1024px) {
+            h1 {
+                font-size: 2.5em;
+            }
+
+            p {
+                font-size: 1.2em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            p {
+                font-size: 1.1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5em;
+            }
+
+            p {
+                font-size: 1em;
+            }
+
+            button {
+                font-size: 0.9em;
+                padding: 8px 16px;
+            }
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes blink-caret {
+
+            from,
+            to {
+                border-color: transparent;
+            }
+
+            50% {
+                border-color: white;
+            }
+        }
+
+        p {
+            font-size: 1em;
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeIn 2s ease-in-out 3s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .heart {
+            position: absolute;
+            color: red;
+            font-size: 2em;
+            animation: float 5s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .fireworks {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .firework {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: yellow;
+            border-radius: 50%;
+            animation: explode 2s infinite;
+        }
+
+        @keyframes explode {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Selamat Ulang Tahun, Sayang!</h1>
+        <p>Semoga tahun ini penuh kebahagiaan, cinta, dan petualangan baru. Selamat tahun baru 2026! Aku mencintaimu
+            selamanya.</p>
+        <p>Dari: Sofyan</p>
+        <button onclick="window.location.href='love.html'">Klik untuk Kejutan Cinta</button>
+    </div>
+    <div class="hearts" id="hearts"></div>
+    <div class="fireworks" id="fireworks"></div>
+
+    <script>
+        // Animasi hati jatuh
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDelay = Math.random() * 5 + 's';
+            document.getElementById('hearts').appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+        setInterval(createHeart, 500);
+
+        // Animasi kembang api
+        function createFirework() {
+            const firework = document.createElement('div');
+            firework.className = 'firework';
+            firework.style.left = Math.random() * 100 + 'vw';
+            firework.style.top = Math.random() * 100 + 'vh';
+            firework.style.animationDelay = Math.random() * 2 + 's';
+            document.getElementById('fireworks').appendChild(firework);
+            setTimeout(() => firework.remove(), 2000);
+        }
+        setInterval(createFirework, 300);
+    </script>
+</body>
+
+</html>

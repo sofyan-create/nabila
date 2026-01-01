@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Cinta</title>
+    <style>
+        body {
+            font-family: 'Dancing Script', cursive; /* Font romantis */
+            background: linear-gradient(135deg, #ffb6c1, #add8e6, #ffe4e1);
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .particle {
+            position: absolute;
+            color: #ff69b4;
+            font-size: 1.5em;
+            animation: fall 10s linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+        .heart-shape {
+            width: 250px;
+            height: 250px;
+            background: linear-gradient(45deg, #ff1493, #ff69b4);
+            position: relative;
+            margin: 0 auto;
+            transform: rotate(-45deg);
+            animation: heartPulse 2s infinite, glow 2s infinite alternate, heartFadeOut 1s 4s forwards; /* Muncul 5 detik, lalu fade-out */
+            box-shadow: 0 0 20px rgba(255, 20, 147, 0.5);
+            z-index: 1;
+        }
+        .heart-shape:before,
+        .heart-shape:after {
+            content: "";
+            width: 250px;
+            height: 250px;
+            background: linear-gradient(45deg, #ff1493, #ff69b4);
+            border-radius: 50%;
+            position: absolute;
+            box-shadow: 0 0 20px rgba(255, 20, 147, 0.5);
+        }
+        .heart-shape:before {
+            top: -125px;
+            left: 0;
+        }
+        .heart-shape:after {
+            top: 0;
+            left: 125px;
+        }
+        @keyframes heartPulse {
+            0%, 100% { transform: rotate(-45deg) scale(1); }
+            50% { transform: rotate(-45deg) scale(1.2); }
+        }
+        @keyframes glow {
+            from { box-shadow: 0 0 20px rgba(255, 20, 147, 0.5); }
+            to { box-shadow: 0 0 40px rgba(255, 20, 147, 1); }
+        }
+        @keyframes heartFadeOut {
+            to { opacity: 0; transform: rotate(-45deg) scale(0.5); }
+        }
+        .photos {
+            display: block;
+            margin-top: 0;
+            z-index: 1;
+            position: fixed;
+            opacity: 0;
+            animation: fadeInPhotos 4s 5s forwards; /* Muncul setelah 5 detik */
+        }
+        @keyframes fadeInPhotos {
+            to { opacity: 1; }
+        }
+        .photo {
+            width: 800px;
+            max-width: 95%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transform: scale(0.8);
+            animation: photoZoom 3s forwards;
+        }
+        @keyframes photoZoom {
+            to { opacity: 1; transform: scale(1); }
+        }
+        .slideshow {
+            position: relative;
+        }
+        .slide {
+            display: none;
+            
+        }
+        .slide.active {
+            display: block;
+        }
+        .slide.fade-out {
+            animation: fadeOut 1s forwards;
+        }
+        @keyframes fadeOut {
+            to { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    <div class="heart-shape"></div>
+    <div class="photos" id="photos">
+        <div class="slideshow">
+            <img src="img/Nabila (1).jpeg" alt="" class="photo slide active">
+            <img src="img/Nabila (2).jpeg" alt="" class="photo slide">
+            <img src="img/Nabila (3).jpeg" alt="" class="photo slide">
+            <img src="img/Nabila (4).jpeg" alt="" class="photo slide">
+            <img src="img/Nabila (5).jpeg" alt="" class="photo slide">
+            <img src="img/Nabila (6).jpeg" alt="" class="photo slide">
+            <img src="img/Nabila (7).jpeg" alt="" class="photo slide">
+            <img src="img/Nabila (8).jpeg" alt="" class="photo slide">
+            <img src="img/Nabila (9).jpeg" alt="" class="photo slide">
+        </div>
+    </div>
+
+    <script>
+        // Partikel jatuh (hati kecil)
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.innerHTML = '💖';
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.animationDelay = Math.random() * 10 + 's';
+            document.getElementById('particles').appendChild(particle);
+            setTimeout(() => particle.remove(), 10000);
+        }
+        setInterval(createParticle, 1000);
+
+        // Slideshow foto dimulai setelah foto muncul (setelah 5 detik)
+        setTimeout(() => {
+            const slides = document.querySelectorAll('.slide');
+            let currentSlide = 0;
+            setInterval(() => {
+                slides[currentSlide].classList.add('fade-out');
+                setTimeout(() => {
+                    slides[currentSlide].classList.remove('active', 'fade-out');
+                    currentSlide = (currentSlide + 1) % slides.length;
+                    slides[currentSlide].classList.add('active');
+                }, 1000);
+            }, 3000); // Ganti foto setiap 3 detik
+        }, 2000); // Mulai slideshow setelah 2 detik
+    </script>
+</body>
+</html>
